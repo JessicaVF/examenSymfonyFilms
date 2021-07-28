@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello FilmController!{% endblock %}
+
+{% block body %}
+
+
+<div class="row">
+
+        <div class="card text-white bg-secondary m-3" style="max-width: 18rem;">
+            <div class="card-header">{{ film.nom }}</div>
+            <div class="card-body">
+                <h5 class="card-title"> Un film de: {{ film.realisateur }}</h5>
+                <p class="card-text">{{ film.resume }}</p>
+                <p> Annee sortie: {{ film.anneeSortie |date('d-m-Y')}}</p>
+                <a href="{{path('editFilm', {id: film.id})}}" class="btn btn-primary">edit this film</a>
+            </div>
+        </div>
+
+
+</div>
+
+    <a href="{{path('film')}}" class="btn btn-primary">Back to index</a>
+{% endblock %}

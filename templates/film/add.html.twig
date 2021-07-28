@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme formFilm 'bootstrap_5_layout.html.twig' %}
+
+{% block body %}
+
+    <div class="m-5">
+        {{form_start(formFilm)}}
+
+        {{form_row(formFilm.nom)}}
+        {{form_row(formFilm.resume)}}
+        {{form_row(formFilm.realisateur)}}
+        {{form_row(formFilm.anneeSortie)}}
+
+        <button class="btn btn-danger" type="submit">
+            {% if modeEdition %}
+                Update film
+            {% else %}
+                Add film
+            {% endif %}
+        </button>
+        {{form_end(formFilm)}}
+        <br>
+        {% if modeEdition %}
+            <a href="{{path('showFilm', {id: film.id})}}" class="btn btn-primary">Cancel (back to the film)</a>
+        {% endif %}
+        <a href="{{path('film')}}" class="btn btn-primary">Back to index</a>
+
+    </div>
+{% endblock %}
