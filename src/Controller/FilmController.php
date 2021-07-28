@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Film;
+use App\Entity\Impression;
 use App\Form\FilmType;
+use App\Form\ImpressionType;
 use App\Repository\FilmRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,10 +29,26 @@ class FilmController extends AbstractController
     /**
      * @Route("film/show/{id}", name="showFilm", requirements={"id"="\d+"})
      */
-    public function show(Film $film): Response{
+    public function show(Film $film = null, Request $requete, EntityManagerInterface $manager): Response{
+
+        $impressions = $film->getImpressions();
+
+        //Impressions add
+        $impression = new Impression;
+        $formImpression = $this->createForm(ImpressionType::class, $impression);
+        $formImpression->handleRequest($requete);
+
+        if($formImpression->isSubmitted() && $formImpression->isValid())
+        {
+            $impression = $formImpression->getData();
+            $impression->setDateCreation(new \DateTime());
+            $impression->setFilm($film);
+            $manager->persist($impression);
+            $manager->flush();
+        }
 
         return $this->render('film/show.html.twig', [
-            'film' => $film,
+            'film' => $film, 'impressions'=>$impressions, 'formImpression'=> $formImpression->createView()
         ]);
 
     }
@@ -68,7 +86,7 @@ class FilmController extends AbstractController
             }
             return $this->redirectToRoute('film');
         }
-        return $this->render('film/add.html.twig', ['formFilm'=> $formFilm->createView(), 'film'=> $film, 'modeEdition'=> $modeEdition]);
+        return $this->render('film/edit.html.twig', ['formFilm'=> $formFilm->createView(), 'film'=> $film, 'modeEdition'=> $modeEdition]);
     }
     /**
      *

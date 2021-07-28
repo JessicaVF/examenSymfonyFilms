@@ -3,7 +3,7 @@
 {% block title %}Hello FilmController!{% endblock %}
 
 {% block body %}
-
+    <a href="{{path('addFilm')}}" class="btn btn-success">Add a film</a>
 
 <div class="row">
     {% for film in films %}

@@ -2,8 +2,10 @@
 
 {% block title %}Hello FilmController!{% endblock %}
 
-{% block body %}
+{% form_theme formImpression 'bootstrap_5_layout.html.twig' %}
 
+{% block body %}
+    <a href="{{path('film')}}" class="btn btn-primary">Back to index</a>
 
 <div class="row">
 
@@ -14,11 +16,47 @@
                 <p class="card-text">{{ film.resume }}</p>
                 <p> Annee sortie: {{ film.anneeSortie |date('d-m-Y')}}</p>
                 <a href="{{path('editFilm', {id: film.id})}}" class="btn btn-primary">edit this film</a>
+                <a href="{{path('deleteFilm', {id: film.id})}}" class="btn btn-danger">Delete this film</a>
             </div>
         </div>
 
+</div>
+<div class="m-5 border">
+    Add a impression:
+    <br>
+    {{form_start(formImpression)}}
+
+    {{form_row(formImpression.contenu)}}
+
+    <button class="btn btn-danger" type="submit">
+
+            Add impression
+
+    </button>
+
+    {{form_end(formImpression)}}
 
 </div>
 
-    <a href="{{path('film')}}" class="btn btn-primary">Back to index</a>
+<div class="row">
+
+
+    {% for impression in impressions %}
+
+
+        <div class="card text-white bg-dark m-3" style="max-width: 18rem;">
+
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+                <p class="card-text">{{ impression.contenu }}</p>
+                <p> date creation: {{ impression.dateCreation |date('d-m-Y')}}</p>
+                <a href="{{path('editImpression', {id: impression.id})}}" class="btn btn-primary">edit this impression</a>
+                <a href="{{path('deleteImpression', {id: impression.id})}}" class="btn btn-danger">Delete this impression</a>
+            </div>
+        </div>
+
+    {% endfor %}
+
+
+</div>
 {% endblock %}

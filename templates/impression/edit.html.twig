@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme formImpression 'bootstrap_5_layout.html.twig' %}
+
+{% block body %}
+
+    <div class="m-5">
+        {{form_start(formImpression)}}
+
+        {{form_row(formImpression.contenu)}}
+
+
+
+
+
+            <button class="btn btn-danger" type="submit">
+
+
+                  Edit impression
+
+            </button>
+        {{form_end(formImpression)}}
+        <br>
+
+        <a href="{{path('film')}}" class="btn btn-primary">Back to index</a>
+
+    </div>
+{% endblock %}
