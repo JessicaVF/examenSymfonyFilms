@@ -33,6 +33,14 @@ class Impression
      */
     private $film;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="impressions")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $auteur;
+
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -70,6 +78,18 @@ class Impression
     public function setFilm(?Film $film): self
     {
         $this->film = $film;
+
+        return $this;
+    }
+
+    public function getAuteur(): ?User
+    {
+        return $this->auteur;
+    }
+
+    public function setAuteur(?User $auteur): self
+    {
+        $this->auteur = $auteur;
 
         return $this;
     }

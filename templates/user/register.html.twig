@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+{% form_theme formRegister 'bootstrap_5_layout.html.twig' %}
+
+{% block body %}
+    {{form_start(formRegister)}}
+    {{form_row(formRegister.username)}}
+    {{form_row(formRegister.email)}}
+    {{form_row(formRegister.password)}}
+    {{form_row(formRegister.passwordConfirm)}}
+    <button class="btn btn-secondary" type="submit">Register!</button>
+    {{form_end(formRegister)}}
+
+
+
+    <hr>
+
+    <a href={{path('login')}} class="btn btn-primary">Back to login</a>
+
+{% endblock %}

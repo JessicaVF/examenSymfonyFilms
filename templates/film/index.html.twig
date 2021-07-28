@@ -3,6 +3,8 @@
 {% block title %}Hello FilmController!{% endblock %}
 
 {% block body %}
+    <a href="{{path('logout')}}" class="btn btn-danger"> Logout </a>
+    <hr>
     <a href="{{path('addFilm')}}" class="btn btn-success">Add a film</a>
 
 <div class="row">

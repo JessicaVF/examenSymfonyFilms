@@ -44,9 +44,17 @@ class Film
      */
     private $impressions;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="films")
+     */
+    private $auteur;
+
+
+
     public function __construct()
     {
         $this->impressions = new ArrayCollection();
+        $this->auteur = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -128,6 +136,34 @@ class Film
                 $impression->setFilm(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAuteur(): ?User
+    {
+        return $this->Auteur;
+    }
+
+    public function setAuteur(?User $Auteur): self
+    {
+        $this->Auteur = $Auteur;
+
+        return $this;
+    }
+
+    public function addAuteur(User $auteur): self
+    {
+        if (!$this->auteur->contains($auteur)) {
+            $this->auteur[] = $auteur;
+        }
+
+        return $this;
+    }
+
+    public function removeAuteur(User $auteur): self
+    {
+        $this->auteur->removeElement($auteur);
 
         return $this;
     }
